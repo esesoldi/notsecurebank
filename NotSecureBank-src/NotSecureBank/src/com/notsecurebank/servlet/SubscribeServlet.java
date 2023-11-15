@@ -32,11 +32,9 @@ public class SubscribeServlet extends HttpServlet {
         try {
 
             String registeredUser = DBUtil.addSubscription(email);
-            if (registeredUser == null) {
-                messageSubscribe = "Thank you. Your email <em>" + email + "</em> has been accepted. You are not registered yet. Please <a href='locations.jsp'>search</a> for the Branch Office closest to you and ask them for an account.";
-            } else {
-                messageSubscribe = "Hello <em>" + registeredUser + "</em>! Your email <em>" + email + "</em> has been accepted. Please <a href='login.jsp'>sign in</a> to use our advanced banking features.";
-            }
+            messageSubscribe = "Thank you. Your email <em>" + email + "</em> has been accepted. " + "
+            Please <a href='login.jsp'>sign in</a> to use our advanced banking features. If you are not registered yet, please <a href='locations.jsp'>search</a> for the Branch Office closest to you and ask them for an account.";
+            // in questo modo l'attaccante non può dedurre se un account esiste o meno
 
         } catch (Exception e) {
             messageSubscribe = "Unexpected error.";
