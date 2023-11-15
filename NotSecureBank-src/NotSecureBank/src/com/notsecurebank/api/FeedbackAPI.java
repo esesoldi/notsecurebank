@@ -45,13 +45,32 @@ public class FeedbackAPI extends NotSecureBankAPI {
         String comments;
 
         try {
-            name = (String) myJson.get("name");
-            email = (String) myJson.get("email");
-            subject = (String) myJson.get("subject");
-            comments = (String) myJson.get("message");
-        } catch (JSONException e) {
+            name = OperationsUtil.sanitizeName((String) myJson.get("name"));
+        } catch(Exception e) {
             LOG.error(e.toString());
-            return Response.status(400).entity("{\"Error\": \"Body does not contain all the correct attributes\"}").build();
+            return Response.status(400).entity("{\"Error\": \"Invalid name. Please enter a valid name containing only letters, spaces, apostrophes, and hyphens.\"}").build();
+        }
+        try {
+            email = OperationsUtil.sanitizeEmail((String) myJson.get("email"));
+        } catch(Exception e) {
+            LOG.error(e.toString());
+            return Response.status(400).entity("{\"Error\": \"Invalid email. Please enter a valid email address.\"}").build();
+        }
+
+        try {
+            subject = OperationsUtil.validateText((String) myJson.get("subject"));
+        } catch(Exception e) {
+            LOG.error(e.toString());
+            return Response.status(400).entity("{\"Error\": \"Invalid subject. Please use only letters, numbers, spaces, and some punctuation marks.\"}").build();
+      
+        }
+
+        try {
+            comments = OperationsUtil.validateText((String) myJson.get("message"));
+        } catch(Exception e) {
+            LOG.error(e.toString());
+            return Response.status(400).entity("{\"Error\": \"Invalid comment. Please use only letters, numbers, spaces, and some punctuation marks.\"}").build();
+      
         }
 
         String feedbackId = OperationsUtil.sendFeedback(name, email, subject, comments);
@@ -73,6 +92,8 @@ public class FeedbackAPI extends NotSecureBankAPI {
             myJson.put("comments", comments);
             return Response.status(200).entity(myJson.toString()).build();
         }
+
+
     }
 
     @GET

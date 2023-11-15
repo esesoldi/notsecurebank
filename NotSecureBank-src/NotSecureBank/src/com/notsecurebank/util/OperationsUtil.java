@@ -2,6 +2,8 @@ package com.notsecurebank.util;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +18,11 @@ import com.notsecurebank.model.User;
 public class OperationsUtil {
 
     private static final Logger LOG = LogManager.getLogger(OperationsUtil.class);
+
+    private static final String NAME_PATTERN = "^[a-zA-Z\\s'-]+$";
+    private static final String EMAIL_PATTERN = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+    private static final String TEXT_PATTERN = "^[a-zA-Z0-9.,!?\\s'-]+$";
+
 
     public static String doTransfer(HttpServletRequest request, long creditActId, String accountIdString, double amount) {
         LOG.debug("doTransfer(HttpServletRequest, " + creditActId + ", '" + accountIdString + "', " + amount + ")");
@@ -110,5 +117,65 @@ public class OperationsUtil {
         return String.valueOf(id);
 
     }
+
+    
+
+    public static String sanitizeName(String input) throws Exception {
+       if(isEmpty(input)) {
+            throw new Exception("Invalid Name");
+       }
+        // Crea il pattern regex
+        Pattern pattern = Pattern.compile(NAME_PATTERN);
+        // Usa un oggetto Matcher per confrontare l'input con il pattern
+        Matcher matcher = pattern.matcher(input);
+
+        // Verifica se il nome soddisfa il pattern della whitelist
+        if (matcher.matches()) {
+            // Il nome è valido, restituisci il nome "sanitizzato"
+            return input.trim();  
+        } else {
+            // Il nome contiene caratteri non consentiti
+            throw new Exception("Invalid Name");
+        }
+    }
+
+    public static String sanitizeEmail(String input) throws Exception {
+        if(isEmpty(input)) {
+            throw new Exception("Invalid Email");
+       }
+        Pattern pattern = Pattern.compile(EMAIL_PATTERN);
+        Matcher matcher = pattern.matcher(input);
+
+        if (matcher.matches()) {
+            // L'indirizzo email è valido, restituisci l'indirizzo "sanitizzato"
+            return input.trim();
+        } else {
+            // L'indirizzo email non è valido
+            throw new Exception("Invalid Email");
+        }
+    }
+
+    public static String validateText(String input) throws Exception {
+         if(isEmpty(input)) {
+            throw new Exception("Invalid text");
+       }
+
+        Pattern pattern = Pattern.compile(TEXT_PATTERN);
+        Matcher matcher = pattern.matcher(input);
+
+        if (matcher.matches()) {
+            // Il commento è valido, restituisci il commento "validato"
+            return input.trim();
+        } else {
+            // Il commento non è valido, restituisci un messaggio di errore
+            throw new Exception("Invalid Text");
+        }
+    }
+
+     public static boolean isEmpty(String str) {
+        return str == null || str.trim().isEmpty();
+     }
+
+
 
 }
