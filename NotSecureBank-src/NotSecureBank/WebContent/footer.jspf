@@ -1,0 +1,21 @@
+<!-- BEGIN FOOTER -->
+<%@page import="java.util.Date"%>
+<%@page import="java.util.Calendar"%>
+</tr>
+</table>
+<div id="footer" style="width: 99%;">
+    <a id="HyperLink5" href="<%=request.getContextPath()%>/index.jsp?content=privacy.htm">Privacy Policy</a>
+    &nbsp;&nbsp;|&nbsp;&nbsp;
+    <a id="HyperLink6" href="<%=request.getContextPath()%>/index.jsp?content=security.htm">Security Statement</a>
+    &nbsp;&nbsp;|&nbsp;&nbsp;
+    <a id="HyperLink6" href="<%=request.getContextPath()%>/status_check.jsp">Server Status Check</a>
+    &nbsp;&nbsp;|&nbsp;&nbsp; 
+    <a id="HyperLink6" href="<%=request.getContextPath()%>/index.jsp?content=api.htm">REST API</a>
+    &nbsp;&nbsp;|&nbsp;&nbsp; 
+    &copy;&nbsp;<% out.print(Calendar.getInstance().get(Calendar.YEAR)); %> Not Secure Bank, Inc.
+    &nbsp;&nbsp;<a href="<%=request.getContextPath()%>/admin/login.jsp" style="color: white;">Administration Login</a>
+</div>
+
+</body>
+</html>
+<!-- END FOOTER -->

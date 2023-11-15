@@ -1,0 +1,220 @@
+<!-- Keywords:Not Secure Bank, API -->
+<div class="fl" style="width: 67%;">
+
+<h1>API Catalog</h1>
+
+<p>REST APIs are a widespread and growing method to offer operations and data access to front-end application and/or third parties' systems. With our wonderful REST API, you can develop custom applications able to interact with No Secure Bank services.</p>
+<code>Base URL: http://$hostname/notsecurebank/api</code>
+<hr />
+
+<h2>Login</h2>
+<p>Login mechanism.</p>
+<h3>GET <em>/login</em></h3>
+<p>Check if any user is loggedin. If a user is loggedin the username will be returned.</p>
+<h4>Parameters</h4>
+<p>No parameters.</p>
+<h4>Responses</h4>
+<table>
+	<tr><th class="bt br bl bb">Code</th><th class="bt br bl bb">Description</th></tr>
+	<tr><td class="bt br bl bb">200</td><td class="bt br bl bb">Status on whether the user is logged in or not.</td></tr>
+</table>
+<h3>POST <em>/login</em></h3>
+<p>Login method. After a login is successful a success message will be returned.</p>
+<h4>Parameters</h4>
+<table>
+	<tr><th class="bt br bl bb">Name</th><th class="bt br bl bb">Description</th></tr>
+	<tr>
+		<td class="bt br bl bb"><strong>body</strong> (required, JSON, request body)</td>
+		<td class="bt br bl bb"><em>{ "username":"jsmith", "password":"demo1234" }</em></td>
+	</tr>
+</table>
+<h4>Responses</h4>
+<table>
+	<tr><th class="bt br bl bb">Code</th><th class="bt br bl bb">Description</th></tr>
+	<tr><td class="bt br bl bb">200</td><td class="bt br bl bb">Success message when login is complete.</td></tr>
+	<tr><td class="bt br bl bb">400</td><td class="bt br bl bb">User error message.</td></tr>
+	<tr><td class="bt br bl bb">500</td><td class="bt br bl bb">Server error message.</td></tr>
+</table>
+<hr />
+
+<h2>Account</h2>
+<p>View account information.</p>
+<h3>GET <em>/account</em></h3>
+<p>Returns a list of all the accounts owned by the user.</p>
+<h4>Parameters</h4>
+<p>No parameters.</p>
+<h4>Responses</h4>
+<table>
+	<tr><th class="bt br bl bb">Code</th><th class="bt br bl bb">Description</th></tr>
+	<tr><td class="bt br bl bb">200</td><td class="bt br bl bb">Successful operation.</td></tr>
+	<tr><td class="bt br bl bb">401</td><td class="bt br bl bb">Unauthorized request.</td></tr>
+	<tr><td class="bt br bl bb">500</td><td class="bt br bl bb">Internal server error.</td></tr>
+</table>
+<h3>GET <em>/account/{accountNo}</em></h3>
+<p>Returns details about a specific account.</p>
+<h4>Parameters</h4>
+<table>
+	<tr><th class="bt br bl bb">Name</th><th class="bt br bl bb">Description</th></tr>
+	<tr>
+		<td class="bt br bl bb"><strong>accountNo</strong> (required, string, request path)</td>
+		<td class="bt br bl bb">800002,800003,4539082039396288</td>
+	</tr>
+</table>
+<h4>Responses</h4>
+<table>
+	<tr><th class="bt br bl bb">Code</th><th class="bt br bl bb">Description</th></tr>
+	<tr><td class="bt br bl bb">200</td><td class="bt br bl bb">Successful operation.</td></tr>
+	<tr><td class="bt br bl bb">401</td><td class="bt br bl bb">Unauthorized request.</td></tr>
+	<tr><td class="bt br bl bb">500</td><td class="bt br bl bb">Internal server error.</td></tr>
+</table>
+<h3>GET <em>/account/{accountNo}/transactions</em></h3>
+<p>Returns the last 10 transactions attached to an account.</p>
+<h4>Parameters</h4>
+<table>
+	<tr><th class="bt br bl bb">Name</th><th class="bt br bl bb">Description</th></tr>
+	<tr>
+		<td class="bt br bl bb"><strong>accountNo</strong> (required, string, request path)</td>
+		<td class="bt br bl bb">800002,800003,4539082039396288</td>
+	</tr>
+</table>
+<h4>Responses</h4>
+<table>
+	<tr><th class="bt br bl bb">Code</th><th class="bt br bl bb">Description</th></tr>
+	<tr><td class="bt br bl bb">200</td><td class="bt br bl bb">Successful operation.</td></tr>
+	<tr><td class="bt br bl bb">401</td><td class="bt br bl bb">Unauthorized request.</td></tr>
+	<tr><td class="bt br bl bb">500</td><td class="bt br bl bb">Internal server error.</td></tr>
+</table>
+<h3>POST <em>/account/{accountNo}/transactions</em></h3>
+<p>Return transactions between 2 specific dates.</p>
+<h4>Parameters</h4>
+<table>
+	<tr><th class="bt br bl bb">Name</th><th class="bt br bl bb">Description</th></tr>
+	<tr>
+		<td class="bt br bl bb"><strong>accountNo</strong> (required, string, request path)</td>
+		<td class="bt br bl bb">800002</td>
+	</tr>
+	<tr>
+		<td class="bt br bl bb"><strong>body</strong> (optional, JSON, request body)</td>
+		<td class="bt br bl bb"><em>{ "startDate":"2012-03-14", "endDate":"2012-03-17" }</em></td>
+	</tr>
+</table>
+<h4>Responses</h4>
+<table>
+	<tr><th class="bt br bl bb">Code</th><th class="bt br bl bb">Description</th></tr>
+	<tr><td class="bt br bl bb">200</td><td class="bt br bl bb">Successful operation.</td></tr>
+	<tr><td class="bt br bl bb">401</td><td class="bt br bl bb">Unauthorized request.</td></tr>
+	<tr><td class="bt br bl bb">500</td><td class="bt br bl bb">Internal server error.</td></tr>
+</table>
+<hr />
+
+<h2>Transfer</h2>
+<p>Transfer funds between accounts.</p>
+<h3>POST <em>/transfer</em></h3>
+<p>Transfer money between two accounts.</p>
+<h4>Parameters</h4>
+<table>
+	<tr><th class="bt br bl bb">Name</th><th class="bt br bl bb">Description</th></tr>
+	<tr>
+		<td class="bt br bl bb"><strong>body</strong> (required, JSON, request body)</td>
+		<td class="bt br bl bb"><em>{ "transferAmount":"200", "toAccount":"800002", "fromAccount":"800003" }</em></td>
+	</tr>
+</table>
+<h4>Responses</h4>
+<table>
+	<tr><th class="bt br bl bb">Code</th><th class="bt br bl bb">Description</th></tr>
+	<tr><td class="bt br bl bb">200</td><td class="bt br bl bb">Successful operation.</td></tr>
+	<tr><td class="bt br bl bb">500</td><td class="bt br bl bb">Internal server error.</td></tr>
+</table>
+<hr />
+
+<h2>Feedback</h2>
+<p>Submit and review feedback.</p>
+<h3>POST <em>/feedback/submit</em></h3>
+<p>Submit feedback for the bank.</p>
+<h4>Parameters</h4>
+<table>
+	<tr><th class="bt br bl bb">Name</th><th class="bt br bl bb">Description</th></tr>
+	<tr>
+		<td class="bt br bl bb"><strong>body</strong> (required, JSON, request body)</td>
+		<td class="bt br bl bb"><em>{ "name":"John Smith", "email":"jsmith@foo.com", "subject":"Amazing web design", "message":"Great application, wonderful design!" }</em></td>
+	</tr>
+</table>
+<h4>Responses</h4>
+<table>
+	<tr><th class="bt br bl bb">Code</th><th class="bt br bl bb">Description</th></tr>
+	<tr><td class="bt br bl bb">200</td><td class="bt br bl bb">Successful operation.</td></tr>
+	<tr><td class="bt br bl bb">401</td><td class="bt br bl bb">Unauthorized request.</td></tr>
+	<tr><td class="bt br bl bb">500</td><td class="bt br bl bb">Internal server error.</td></tr>
+</table>
+<h3>GET <em>/feedback/{feedbackId}</em></h3>
+<p>Retrieve feedback.</p>
+<h4>Parameters</h4>
+<table>
+	<tr><th class="bt br bl bb">Name</th><th class="bt br bl bb">Description</th></tr>
+	<tr>
+		<td class="bt br bl bb"><strong>feedbackId</strong> (required, string, request path)</td>
+		<td class="bt br bl bb"></td>
+	</tr>
+</table>
+<h4>Responses</h4>
+<table>
+	<tr><th class="bt br bl bb">Code</th><th class="bt br bl bb">Description</th></tr>
+	<tr><td class="bt br bl bb">200</td><td class="bt br bl bb">Successful operation.</td></tr>
+	<tr><td class="bt br bl bb">401</td><td class="bt br bl bb">Unauthorized request.</td></tr>
+	<tr><td class="bt br bl bb">500</td><td class="bt br bl bb">Internal server error.</td></tr>
+</table>
+<hr />
+
+<h2>Admin</h2>
+<p>Add and change user details.</p>
+<h3>POST <em>/admin/addUser</em></h3>
+<p>Add new user.</p>
+<h4>Parameters</h4>
+<table>
+	<tr><th class="bt br bl bb">Code</th><th class="bt br bl bb">Description</th></tr>
+	<tr>
+		<td class="bt br bl bb"><strong>body</strong> (required, JSON, request body)</td>
+		<td class="bt br bl bb"><em>{ "firstname":"Bilbo", "lastname":"Baggins", "username":"bilbob", "email":"bilbo.baggins@theshire.com", "password1":"smeagol", "password2":"smeagol" }</em></td>
+	</tr>
+</table>
+<h4>Responses</h4>
+<table>
+	<tr><th class="bt br bl bb">Name</th><th class="bt br bl bb">Description</th></tr>
+	<tr><td class="bt br bl bb">200</td><td class="bt br bl bb">Successful operation.</td></tr>
+	<tr><td class="bt br bl bb">401</td><td class="bt br bl bb">Unauthorized request.</td></tr>
+	<tr><td class="bt br bl bb">500</td><td class="bt br bl bb">Internal server error.</td></tr>
+</table>
+<h3>POST <em>/admin/changePassword</em></h3>
+<p>Change user password.</p>
+<h4>Parameters</h4>
+<table>
+	<tr><th class="bt br bl bb">Code</th><th class="bt br bl bb">Description</th></tr>
+	<tr>
+		<td class="bt br bl bb"><strong>body</strong> (required, JSON, request body)</td>
+		<td class="bt br bl bb"><em>{ "username":"jdoe", "password1":"smeagol", "password2":"smeagol" }</em></td>
+	</tr>
+</table>
+<h4>Responses</h4>
+<table>
+	<tr><th class="bt br bl bb">Name</th><th class="bt br bl bb">Description</th></tr>
+	<tr><td class="bt br bl bb">200</td><td class="bt br bl bb">Successful operation.</td></tr>
+	<tr><td class="bt br bl bb">401</td><td class="bt br bl bb">Unauthorized request.</td></tr>
+	<tr><td class="bt br bl bb">500</td><td class="bt br bl bb">Internal server error.</td></tr>
+</table>
+<hr />
+
+<h2>Logout</h2>
+<p>Logout mechanism.</p>
+<h3>GET <em>/logout</em></h3>
+<p>Logout from the bank.</p>
+<h4>Parameters</h4>
+<p>No parameters.</p>
+<h4>Responses</h4>
+<table>
+	<tr><th class="bt br bl bb">Code</th><th class="bt br bl bb">Description</th></tr>
+	<tr><td class="bt br bl bb">200</td><td class="bt br bl bb">Successful operation.</td></tr>
+	<tr><td class="bt br bl bb">500</td><td class="bt br bl bb">Internal server error.</td></tr>
+</table>
+<hr />
+
+</div>

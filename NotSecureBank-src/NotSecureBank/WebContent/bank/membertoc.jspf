@@ -1,0 +1,46 @@
+<!-- MEMBER TOC BEGIN -->
+<%@page import="com.notsecurebank.util.ServletUtil"%>
+<%@page import="com.notsecurebank.util.DBUtil"%>
+
+<%
+response.setDateHeader ("Expires", 0);
+response.setHeader("Cache-Control","no-cache");
+response.setHeader("Pragma","no-cache");
+%>
+
+<%@page import="com.notsecurebank.model.User"%><table cellspacing="0" width="100%">
+<% User user = (com.notsecurebank.model.User)request.getSession().getAttribute("user"); %>
+
+    <td valign="top" class="cc br bb">
+        <br style="line-height: 10px;"/>
+        <b>I WANT TO ...</b>
+        <ul class="sidebar">
+            <li><a id="MenuHyperLink1" href="<%=request.getContextPath()%>/bank/main.jsp">View Account Summary</a></li>
+            <li><a id="MenuHyperLink2" href="<%=request.getContextPath()%>/bank/transaction.jsp">View Recent Transactions</a></li>
+            <li><a id="MenuHyperLink3" href="<%=request.getContextPath()%>/bank/transfer.jsp">Transfer Funds</a></li>
+            <li><a id="MenuHyperLink4" href="<%=request.getContextPath()%>/bank/queryxpath.jsp">Search News Articles</a></li>
+            <li><a id="MenuHyperLink5" href="<%=request.getContextPath()%>/bank/customize.jsp">Customize Site Language</a></li>
+        </ul>
+        <%= !DBUtil.isSpecialPrizeActive() ? "<!--" : "" %>
+        <hr />
+        <div>
+        	<p>A special prize for you.</p>
+        	<form action="specialPrize" method="POST" style="margin: 10px; padding: 3px 10px 3px 10px;">
+        		<input name="specialPrizeCode" type="hidden" value="<%=ServletUtil.generateSpecialPrizeCode(request)%>" />
+        		<input type="submit" name="btnSubmit" value="Good luck!" <%= !DBUtil.isSpecialPrizeActive() ? "disabled=\"disabled\"" : "" %> />
+        	</form>
+        </div>
+        <hr />
+        <%= !DBUtil.isSpecialPrizeActive() ? "-->" : "" %>
+		<%if (user.getRole() == User.Role.Admin){ %>
+		<span id="_ctl0__ctl0_Content_Administration">
+			<br style="line-height: 10px;"/>
+			<b>ADMINISTRATION</b>
+			<ul class="sidebar">
+				<li><a href="<%=request.getContextPath()%>/admin/admin.jsp">Edit Users</a></li>
+				<li><a href="<%=request.getContextPath()%>/admin/feedbackReview.jsp">Review Feedback</a></li>
+			</ul>
+		</span>
+		<%} %>
+    </td>
+<!-- MEMBER TOC END -->

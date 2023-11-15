@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<!DOCTYPE log4j:configuration SYSTEM "/dtd/log4j.dtd" >
+<log4j:configuration debug="true" xmlns:log4j="http://jakarta.apache.org/log4j/">
+	<appender name="file" class="org.apache.log4j.RollingFileAppender">
+        <param name="File" value="${catalina.home}/logs/NotSecureBank.log"/>
+		<param name="MaxFileSize" value="1024KB"/>
+		<param name="MaxBackupIndex" value="20"/>
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5p %C{4} - %m%n" />
+		</layout>
+    </appender>
+	<appender name="console" class="org.apache.log4j.ConsoleAppender">
+        <layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5p %C{4} - %m%n"/>
+		</layout>
+    </appender>
+    <logger name="it">
+        <level value="debug" />
+    </logger>
+    <root>
+        <priority value="debug"/>
+        <appender-ref ref="file"/>
+    </root>
+</log4j:configuration>

@@ -1,0 +1,41 @@
+<?xml version="1.0" ?>
+
+<news>
+	<!-- If element isPublic is False, do not present publication to web users -->
+	<publication>
+		<id>1</id>
+		<date>1/1/1970</date>
+		<title>Unix was created.</title>
+		<isPublic>True</isPublic>
+	</publication>
+	<publication>
+		<id>2</id>
+		<date>15/2/1995</date>
+		<title>Kevin D. Mitnick was arrested.</title>
+		<isPublic>True</isPublic>
+	</publication>
+	<publication>
+		<id>3</id>
+		<date>12/5/2017</date>
+		<title>WannaCry ransomware attack began.</title>
+		<isPublic>True</isPublic>
+	</publication>
+	<publication>
+		<id>4</id>
+		<date>1/6/1996</date>
+		<title>Reply S.p.A. was founded.</title>
+		<isPublic>False</isPublic>
+	</publication>
+	<publication>
+		<id>5</id>
+		<date>14/5/1984</date>
+		<title>Mark Zuckerberg date of birth.</title>
+		<isPublic>True</isPublic>
+	</publication>
+	<publication>
+		<id>6</id>
+		<date>15/9/1997</date>
+		<title>The domain name for Google was registered.</title>
+		<isPublic>True</isPublic>
+	</publication>
+</news>
