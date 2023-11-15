@@ -16,6 +16,8 @@
 			content = "default.htm";
 		else
 			content = request.getParameter("content");
+			// Sanitizzazione del parametro "content" per evitare LFI
+			content = Paths.get(content).normalize().toString();
 			content = "static/"+content;
 		%>
 		
