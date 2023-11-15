@@ -38,7 +38,10 @@
 		<form id="tForm" name="tForm" method="post" action="doTransfer" onsubmit="return (confirminput(tForm));">
 		
 		<h1>Transfer Funds</h1>
-		
+
+		<!-- Aggiungi il token CSRF come campo nascosto nel tuo modulo -->
+		<input type="hidden" name="csrfToken" value="<%= request.getSession().getAttribute("csrfToken") %>">
+
 		<table cellSpacing="0" cellPadding="1" width="100%" border="0">
 		  <tr>
 		    <td><strong>From Account:</strong>

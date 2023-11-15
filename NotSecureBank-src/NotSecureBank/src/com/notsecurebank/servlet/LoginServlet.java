@@ -14,6 +14,7 @@ import org.apache.log4j.Logger;
 
 import com.notsecurebank.util.DBUtil;
 import com.notsecurebank.util.ServletUtil;
+import java.util.UUID;
 
 public class LoginServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
@@ -46,6 +47,10 @@ public class LoginServlet extends HttpServlet {
         // log in
         // Create session if there isn't one:
         HttpSession session = request.getSession(true);
+        // Genera un token CSRF univoco
+        String csrfToken = UUID.randomUUID().toString();
+        // Salva il token CSRF nella sessione
+        session.setAttribute("csrfToken", csrfToken);
 
         String username = null;
 
@@ -69,6 +74,9 @@ public class LoginServlet extends HttpServlet {
         }
 
         try {
+            
+
+        
             Cookie accountCookie = ServletUtil.establishSession(username, session);
             response.addCookie(accountCookie);
             response.sendRedirect(request.getContextPath() + "/bank/main.jsp");

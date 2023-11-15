@@ -8,6 +8,8 @@ import java.util.regex.Pattern;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.log4j.LogManager;
@@ -17,6 +19,7 @@ import com.notsecurebank.model.Account;
 import com.notsecurebank.model.User;
 
 import org.owasp.esapi.ESAPI;
+
 
 public class OperationsUtil {
 
@@ -28,13 +31,26 @@ public class OperationsUtil {
 
 
     public static String doTransfer(HttpServletRequest request, long creditActId, String accountIdString, double amount) {
+
+        // Ottieni il token CSRF dalla richiesta
+        String csrfTokenFromRequest = request.getParameter("csrfToken");
+
+        // Ottieni il token CSRF dalla sessione
+        HttpSession session = request.getSession();
+        String csrfTokenFromSession = (String) session.getAttribute("csrfToken");
+
+        // Confronta i token CSRF
+        if (csrfTokenFromRequest == null || !csrfTokenFromRequest.equals(csrfTokenFromSession)) {
+            return "ERROR: CSRF Token Mismatch";
+        }
+
         LOG.debug("doTransfer(HttpServletRequest, " + creditActId + ", '" + accountIdString + "', " + amount + ")");
 
         long debitActId = 0;
 
         User user = ServletUtil.getUser(request);
         String userName = user.getUsername();
-
+       
         try {
             Long accountId = -1L;
             Account[] userAccounts = user.getAccounts();
