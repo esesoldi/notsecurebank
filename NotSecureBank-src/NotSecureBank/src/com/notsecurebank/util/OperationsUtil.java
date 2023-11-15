@@ -1,5 +1,6 @@
 package com.notsecurebank.util;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.regex.Matcher;
@@ -177,6 +178,23 @@ public class OperationsUtil {
      public static boolean isEmpty(String str) {
         return str == null || str.trim().isEmpty();
      }
+
+     public static boolean validateDate(String dateStr, String format) {
+        if(isEmpty(dateStr)) {
+            return false;
+        }
+        SimpleDateFormat sdf = new SimpleDateFormat(format);
+        sdf.setLenient(false);
+
+        try {
+            Date date = sdf.parse(dateStr);
+            return true;
+        } catch (ParseException e) {
+            return false;
+        }
+    }
+
+   
 
 
 

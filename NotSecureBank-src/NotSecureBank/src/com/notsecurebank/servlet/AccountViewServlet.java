@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
+import com.notsecurebank.util.OperationsUtil;
+
 public class AccountViewServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
@@ -50,9 +52,18 @@ public class AccountViewServlet extends HttpServlet {
             String startTime = request.getParameter("startDate");
             String endTime = request.getParameter("endDate");
 
-            LOG.info("Transactions within '" + startTime + "' and '" + endTime + "'.");
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/bank/transaction.jsp?" + ((startTime != null) ? "&startTime=" + startTime : "") + ((endTime != null) ? "&endTime=" + endTime : ""));
-            dispatcher.forward(request, response);
+            // Assicurati che le date siano inserite in un formato valido
+            if (OperationsUtil.validateDate(startTime, "yyyy-MM-dd") && OperationsUtil.validateDate(endTime, "yyyy-MM-dd")) {
+                LOG.info("Transactions within '" + startTime + "' and '" + endTime + "'.");
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/bank/transaction.jsp?&startTime=" + startTime +  "&endTime=" + endTime);
+                dispatcher.forward(request, response);
+            } else {
+                LOG.info("Transactions");
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/bank/transaction.jsp");
+                dispatcher.forward(request, response);
+            }
+
+           
         }
     }
 }
