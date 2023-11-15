@@ -15,6 +15,8 @@ import org.apache.log4j.Logger;
 import com.notsecurebank.model.Account;
 import com.notsecurebank.model.User;
 
+import org.owasp.esapi.ESAPI;
+
 public class OperationsUtil {
 
     private static final Logger LOG = LogManager.getLogger(OperationsUtil.class);
@@ -132,7 +134,7 @@ public class OperationsUtil {
         // Verifica se il nome soddisfa il pattern della whitelist
         if (matcher.matches()) {
             // Il nome è valido, restituisci il nome "sanitizzato"
-            return input.trim();  
+            return ESAPI.encoder().encodeForHTML(input.trim());  
         } else {
             // Il nome contiene caratteri non consentiti
             throw new Exception("Invalid Name");
@@ -148,7 +150,7 @@ public class OperationsUtil {
 
         if (matcher.matches()) {
             // L'indirizzo email è valido, restituisci l'indirizzo "sanitizzato"
-            return input.trim();
+            return ESAPI.encoder().encodeForHTML(input.trim());
         } else {
             // L'indirizzo email non è valido
             throw new Exception("Invalid Email");
@@ -165,7 +167,7 @@ public class OperationsUtil {
 
         if (matcher.matches()) {
             // Il commento è valido, restituisci il commento "validato"
-            return input.trim();
+            return ESAPI.encoder().encodeForHTML(input.trim());
         } else {
             // Il commento non è valido, restituisci un messaggio di errore
             throw new Exception("Invalid Text");

@@ -33,6 +33,7 @@ dependencies {
     implementation 'com.sun.jersey:jersey-bundle:1.19'
     implementation 'log4j:log4j:1.2.16'
     implementation 'org.apache.wink:wink-json4j:1.4'
+    implementation 'org.owasp.esapi:esapi:2.2.0.0'
     compileOnly 'javax:javaee-api:6.0'
 }
 
