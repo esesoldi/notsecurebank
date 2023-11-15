@@ -37,22 +37,7 @@ public class OperationsUtil {
 
         try {
             Long accountId = -1L;
-            Cookie[] cookies = request.getCookies();
-
-            Cookie notSecureBankCookie = null;
-
-            for (Cookie cookie : cookies) {
-                if (ServletUtil.NOT_SECURE_BANK_COOKIE.equals(cookie.getName())) {
-                    notSecureBankCookie = cookie;
-                    break;
-                }
-            }
-
-            Account[] cookieAccounts = null;
-            if (notSecureBankCookie == null)
-                cookieAccounts = user.getAccounts();
-            else
-                cookieAccounts = Account.fromBase64List(notSecureBankCookie.getValue());
+            Account[] userAccounts = user.getAccounts();
 
             try {
                 accountId = Long.parseLong(accountIdString);
@@ -62,14 +47,14 @@ public class OperationsUtil {
             }
 
             if (accountId > 0) {
-                for (Account account : cookieAccounts) {
+                for (Account account : userAccounts) {
                     if (account.getAccountId() == accountId) {
                         debitActId = account.getAccountId();
                         break;
                     }
                 }
             } else {
-                for (Account account : cookieAccounts) {
+                for (Account account : userAccounts) {
                     if (account.getAccountName().equalsIgnoreCase(accountIdString)) {
                         debitActId = account.getAccountId();
                         break;
