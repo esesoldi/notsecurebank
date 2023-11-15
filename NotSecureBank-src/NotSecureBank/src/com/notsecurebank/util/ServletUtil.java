@@ -270,7 +270,7 @@ public class ServletUtil {
         LOG.debug("isPreApprovedForGoldVisa");
 
         boolean isPreApprovedForGoldVisa = false;
-        Cookie[] cookies = request.getCookies();
+       /*  Cookie[] cookies = request.getCookies();
         if (cookies != null && cookies.length > 0) {
             for (Cookie c : cookies) {
                 if ("preApprovedForGoldVisa".equals(c.getName()) && "true".equals(c.getValue())) {
@@ -278,7 +278,7 @@ public class ServletUtil {
                     break;
                 }
             }
-        }
+        } */
 
         LOG.info("Is pre-approved for Gold Visa? " + isPreApprovedForGoldVisa);
         return isPreApprovedForGoldVisa;
