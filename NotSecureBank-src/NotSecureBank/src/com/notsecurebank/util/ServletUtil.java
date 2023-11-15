@@ -24,6 +24,7 @@ import org.w3c.dom.NodeList;
 import com.notsecurebank.model.Account;
 import com.notsecurebank.model.Feedback;
 import com.notsecurebank.model.User;
+import com.notsecurebank.model.User.Role;
 
 public class ServletUtil {
     private static final Logger LOG = LogManager.getLogger(ServletUtil.class);
@@ -218,6 +219,27 @@ public class ServletUtil {
             return null;
         }
     }
+
+    static public boolean isAdmin(HttpServletRequest request) {
+        LOG.info("Is admin?");
+
+        try {
+            // Check user is logged in
+            User user = (User) request.getSession().getAttribute(ServletUtil.SESSION_ATTR_USER);
+            if (user == null || user.getRole() != Role.Admin) {
+                LOG.info("False.");
+                return false;
+            }
+        } catch (Exception e) {
+            LOG.error(e.toString());
+            LOG.info("False.");
+            return false;
+        }
+
+        LOG.info("True.");
+        return true;
+    }
+
 
     static public boolean isLoggedin(HttpServletRequest request) {
         LOG.info("Is logged in?");
